@@ -1,7 +1,4 @@
-from pathlib import Path
-
-p = Path("/mnt/data/vercel-test.js")
-p.write_text(r'''export default async function handler(req, res) {
+export default async function handler(req, res) {
   const backend = process.env.BACKEND_URL;
 
   if (!backend) {
@@ -12,7 +9,10 @@ p.write_text(r'''export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(`${backend.replace(/\/$/, "")}/health`);
+    const response = await fetch(
+      `${backend.replace(/\/$/, "")}/health`
+    );
+
     const data = await response.json();
 
     return res.status(response.status).json({
@@ -29,6 +29,3 @@ p.write_text(r'''export default async function handler(req, res) {
     });
   }
 }
-''', encoding="utf-8")
-
-print(p)
